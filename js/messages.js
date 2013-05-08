@@ -3,7 +3,7 @@ $(function(){
 });
 
 var getMessages = function() {
-  $.ajax('https://api.parse.com/1/classes/messages', {
+  $.ajax('https://api.parse.com/1/classes/awesome', {
     contentType: 'application/json',
     success: function(data){
       appendMessages(data.results);
@@ -30,4 +30,22 @@ var parseMessage = function(msg){
   $span.text(date);
   $div.append($span);
   return $div;
+};
+
+var postMessage = function() {
+  $.ajax('https://api.parse.com/1/classes/awesome', {
+    contentType: 'application/json',
+    type: 'POST',
+    data: {
+      'username': 'You',
+      'text': 'All your base are belong to us',
+      'roomname': '4chan' // Optional
+    },
+    success: function(data){
+      console.log("successful postMessage");
+    },
+    error: function(data) {
+      console.log('Ajax request failed');
+    }
+  });
 };
