@@ -2,7 +2,9 @@ url = 'https://api.parse.com/1/classes/messages';
 
 $(function(){
   $('#submit-button').click(function(event){
-    console.log('Do it');
+    var text = $('#chat-input')[0].value;
+    console.log(text);
+    postMessage(text);
   });
   getMessages();
 });
@@ -29,22 +31,37 @@ var appendMessages = function(msgs){
 };
 
 var parseMessage = function(msg){
+  // make a div for the message
   var $div = $('<div></div>');
   var date = new Date(msg.createdAt);
-  $div.text(msg.text);
+
+  // add the username
+  var userName = msg.username;
+  var $nameSpan = $('<span></span>');
+  $nameSpan.text(userName + ':  ');
+  $div.append($nameSpan);
+
+  // add the message text
+  var $textSpan = $('<span></span>');
+  $textSpan.text(msg.text);
+  $div.append($textSpan);
+
+  // add the date
   var $span = $('<span></span>');
   $span.text(date);
   $div.append($span);
+
   return $div;
 };
 
-var postMessage = function() {
+var postMessage = function(text) {
+  var userName = window.location.search.slice(10);
   $.ajax(url, {
     contentType: 'application/json',
     type: 'POST',
     data: JSON.stringify({
-      'username': 'Your Mother',
-      'text': 'All your base are belong to us'
+      'username': userName,
+      'text': text
     }),
     success: function(data){
       console.log("successful postMessage");
