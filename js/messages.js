@@ -10,7 +10,7 @@ $(function(){
 });
 
 var getMessages = function() {
-  $.ajax(url + '?limit=1000', {
+  $.ajax(url + '?limit=1000&order=-updatedAt', {
     contentType: 'application/json',
     success: function(data){
       appendMessages(data.results);
@@ -24,7 +24,6 @@ var getMessages = function() {
 };
 
 var appendMessages = function(msgs){
-  msgs.reverse();
   _.each(msgs, function(msg) {
     $('#main').append(parseMessage(msg));
   });
