@@ -1,9 +1,14 @@
+url = 'https://api.parse.com/1/classes/messages';
+
 $(function(){
+  $('#submit-button').click(function(event){
+    console.log('Do it');
+  });
   getMessages();
 });
 
 var getMessages = function() {
-  $.ajax('https://api.parse.com/1/classes/awesome', {
+  $.ajax(url + '?limit=1000', {
     contentType: 'application/json',
     success: function(data){
       appendMessages(data.results);
@@ -17,6 +22,7 @@ var getMessages = function() {
 };
 
 var appendMessages = function(msgs){
+  msgs.reverse();
   _.each(msgs, function(msg) {
     $('#main').append(parseMessage(msg));
   });
@@ -33,19 +39,18 @@ var parseMessage = function(msg){
 };
 
 var postMessage = function() {
-  $.ajax('https://api.parse.com/1/classes/awesome', {
+  $.ajax(url, {
     contentType: 'application/json',
     type: 'POST',
-    data: {
-      'username': 'You',
-      'text': 'All your base are belong to us',
-      'roomname': '4chan' // Optional
-    },
+    data: JSON.stringify({
+      'username': 'Your Mother',
+      'text': 'All your base are belong to us'
+    }),
     success: function(data){
       console.log("successful postMessage");
     },
     error: function(data) {
-      console.log('Ajax request failed');
+      console.log('Ajax request failed', data);
     }
   });
 };
