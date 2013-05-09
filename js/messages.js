@@ -1,4 +1,5 @@
 url = 'https://api.parse.com/1/classes/messages';
+chatLength = 0;
 
 $(function(){
   $('#submit-button').click(function(event){
@@ -7,15 +8,16 @@ $(function(){
     postMessage(text);
   });
   getMessages();
+  //add setinterval
 });
 
 var getMessages = function() {
-  $.ajax(url + '?limit=1000&order=-updatedAt', {
+  $.ajax(url + '?limit=1000&order=updatedAt', {
     contentType: 'application/json',
     success: function(data){
-      appendMessages(data.results);
-      console.log(data);
-      allMessages = data; //used for debugging
+      updateChats(data.results);
+      chatLength = data.results.length;
+      allMessages = data.results; //used for debugging
     },
     error: function(data) {
       console.log('Ajax request failed');
@@ -23,9 +25,9 @@ var getMessages = function() {
   });
 };
 
-var appendMessages = function(msgs){
+var updateChats = function(msgs){
   _.each(msgs, function(msg) {
-    $('#main').append(parseMessage(msg));
+    $('#chat').prepend(parseMessage(msg));
   });
 };
 
