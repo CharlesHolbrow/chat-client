@@ -4,11 +4,13 @@ chatLength = 0;
 $(function(){
   $('#submit-button').click(function(event){
     var text = $('#chat-input')[0].value;
+    $('#chat-input')[0].value = '';
     console.log(text);
     postMessage(text);
   });
   getMessages();
-  //add setinterval
+  //console.log(checkNewChats);
+  setInterval(checkNewChats,300);
 });
 
 var getMessages = function() {
@@ -72,3 +74,17 @@ var postMessage = function(text) {
     }
   });
 };
+
+var checkNewChats = function() {
+  $.ajax(url + '?skip=' + chatLength, { //just count, no results
+    contentType: 'application/json',
+    success: function(data) {
+      updateChats(data.results);
+      chatLength += data.results.length;
+    },
+    error: function(data) {
+      console.log('Could not count chat length');
+    }
+  });
+};
+
