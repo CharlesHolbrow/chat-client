@@ -9,7 +9,6 @@ $(function(){
     postMessage(text);
   });
   getMessages();
-  //console.log(checkNewChats);
   setInterval(checkNewChats,300);
 });
 
