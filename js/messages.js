@@ -44,6 +44,9 @@ var parseMessage = function(msg){
   $nameSpan.click(function(event) {
     friends[userName] = !friends[userName];
   });
+  if (friends[userName]) {
+    $nameSpan.addClass('friend');
+  }
   $nameSpan.text(userName + ':  ');
   $div.append($nameSpan);
 

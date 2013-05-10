@@ -38,3 +38,6 @@ body {
     color: green;
     line-height: 13px;
 }
+#main .friend {
+    font-weight: bold;
+}
