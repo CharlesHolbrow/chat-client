@@ -44,7 +44,7 @@ var parseMessage = function(msg){
   $nameSpan.click(function(event) {
     //toggle friend class of clicked element
     friends[userName] = !friends[userName];
-    //select all username nodes and toggle 
+    //select all username nodes and toggle
     _($('.username')).each(function(node) {
       if (friends[node.textContent]) {
         node.classList.add('friend');
@@ -53,6 +53,10 @@ var parseMessage = function(msg){
       }
     });
   });
+
+  if (friends[userName]) {
+    $nameSpan.addClass('friend');
+  }
 
   $nameSpan.text(userName);
   $div.append($nameSpan);
