@@ -35,8 +35,7 @@ var displayMessages = function(msgs){
 
 var parseMessage = function(msg){
   // make a div for the message
-  var $div = $('<div></div>');
-  var date = new Date(msg.createdAt);
+  var $div = $('<div class="chat-message"></div>');
 
   // add the username
   var userName = msg.username;
@@ -62,12 +61,13 @@ var parseMessage = function(msg){
   $div.append($nameSpan);
 
   // add the message text
-  var $textSpan = $('<span></span>');
+  var $textSpan = $('<span class="msg-text"></span>');
   $textSpan.text(msg.text);
   $div.append($textSpan);
 
   // add the date
-  var $span = $('<span></span>');
+  var $span = $('<span class="timestamp"></span>');
+  var date = new Date(msg.createdAt);
   $span.text(date);
   $div.append($span);
 

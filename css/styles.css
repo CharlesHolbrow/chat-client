@@ -41,3 +41,18 @@ body {
 #main .friend {
     font-weight: bold;
 }
+
+#main .timestamp {
+    color: gray;
+    font-size: 60%;
+    float: right;
+}
+
+#main .username {
+    margin-right: 1em;
+    color: orange;
+}
+
+#main .msg-text {
+
+}
