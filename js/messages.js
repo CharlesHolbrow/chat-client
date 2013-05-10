@@ -1,5 +1,6 @@
 url = 'https://api.parse.com/1/classes/messages';
 chatLength = 0;
+friends = {};
 
 $(function(){
   $('#submit-button').click(function(event){
@@ -40,6 +41,9 @@ var parseMessage = function(msg){
   // add the username
   var userName = msg.username;
   var $nameSpan = $('<span></span>');
+  $nameSpan.click(function(event) {
+    friends[userName] = !friends[userName];
+  });
   $nameSpan.text(userName + ':  ');
   $div.append($nameSpan);
 
