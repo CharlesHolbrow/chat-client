@@ -17,7 +17,7 @@ $(function(){
     url = baseUrl + '/' + ans;
   });
   getMessages();
-  setInterval(update,300);
+  setInterval(update, 300);
 });
 
 var getMessages = function() {
