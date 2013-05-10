@@ -6,27 +6,27 @@ $(function(){
     var text = $('#chat-input')[0].value;
     $('#chat-input')[0].value = '';
     console.log(text);
-    postMessage(text);
+    sendMessage(text);
   });
   getMessages();
-  setInterval(checkNewChats,300);
+  setInterval(update,300);
 });
 
 var getMessages = function() {
   $.ajax(url + '?limit=1000&order=updatedAt', {
     contentType: 'application/json',
     success: function(data){
-      updateChats(data.results);
+      displayMessages(data.results);
       chatLength = data.results.length;
       allMessages = data.results; //used for debugging
     },
     error: function(data) {
-      console.log('Ajax request failed');
+      console.log('getMessages: ajax request failed');
     }
   });
 };
 
-var updateChats = function(msgs){
+var displayMessages = function(msgs){
   _.each(msgs, function(msg) {
     $('#chat').prepend(parseMessage(msg));
   });
@@ -56,7 +56,7 @@ var parseMessage = function(msg){
   return $div;
 };
 
-var postMessage = function(text) {
+var sendMessage = function(text) {
   var userName = window.location.search.slice(10);
   $.ajax(url, {
     contentType: 'application/json',
@@ -66,19 +66,19 @@ var postMessage = function(text) {
       'text': text
     }),
     success: function(data){
-      console.log("successful postMessage");
+      console.log("sendMessage: success");
     },
     error: function(data) {
-      console.log('Ajax request failed', data);
+      console.log("sendMessage: ajax request failed", data);
     }
   });
 };
 
-var checkNewChats = function() {
-  $.ajax(url + '?skip=' + chatLength, { //just count, no results
+var update = function() {
+  $.ajax(url + '?skip=' + chatLength, {
     contentType: 'application/json',
     success: function(data) {
-      updateChats(data.results);
+      displayMessages(data.results);
       chatLength += data.results.length;
     },
     error: function(data) {
