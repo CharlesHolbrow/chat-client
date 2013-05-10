@@ -1,4 +1,5 @@
-url = 'https://api.parse.com/1/classes/messages';
+baseUrl = 'https://api.parse.com/1/classes';
+url = baseUrl + '/messages';
 chatLength = 0;
 friends = {};
 
@@ -8,6 +9,12 @@ $(function(){
     $('#chat-input')[0].value = '';
     console.log(text);
     sendMessage(text);
+  });
+
+  $('#new-chatroom-button').click(function(event){
+    var ans = prompt('Enter new chatroom name');
+    chatLength = 0;
+    url = baseUrl + '/' + ans;
   });
   getMessages();
   setInterval(update,300);
