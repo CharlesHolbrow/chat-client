@@ -40,14 +40,21 @@ var parseMessage = function(msg){
 
   // add the username
   var userName = msg.username;
-  var $nameSpan = $('<span></span>');
+  var $nameSpan = $('<span class="username"></span>');
   $nameSpan.click(function(event) {
+    //toggle friend class of clicked element
     friends[userName] = !friends[userName];
+    //select all username nodes and toggle 
+    _($('.username')).each(function(node) {
+      if (friends[node.textContent]) {
+        node.classList.add('friend');
+      } else {
+        node.classList.remove('friend');
+      }
+    });
   });
-  if (friends[userName]) {
-    $nameSpan.addClass('friend');
-  }
-  $nameSpan.text(userName + ':  ');
+
+  $nameSpan.text(userName);
   $div.append($nameSpan);
 
   // add the message text
