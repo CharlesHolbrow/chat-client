@@ -102,12 +102,13 @@ var sendMessage = function(text) {
 var update = function() {
   $.ajax(url + '?skip=' + chatLength, {
     contentType: 'application/json',
+    timeout: 300,
     success: function(data) {
       displayMessages(data.results);
       chatLength += data.results.length;
     },
-    error: function(data) {
-      console.log('Could not count chat length');
+    error: function(data, reason) {
+      console.log('Could not count chat length:', reason);
     }
   });
 };
